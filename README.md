@@ -1,6 +1,6 @@
 # cradle-queue
 
-RabbitMQ with Fork and Exec workers. Built for the [Cradle Framework](https://cradlephp.github.io/)
+RabbitMQ with Fork and Exec workers. Built for the [Cradle Framework](https://cradlephp.github.io/) 
 
 ## Install
 
