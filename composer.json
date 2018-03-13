@@ -1,6 +1,6 @@
 {
     "name": "cradlephp/cradle-queue",
-    "type": "plugin",
+    "type": "cradle-package",
     "description": "AMQ handler for Cradle",
     "minimum-stability": "dev",
     "keywords": [
