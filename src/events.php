@@ -43,7 +43,7 @@ $cradle->on('queue', function(Request $request, Response $response) {
 
     $retry = 0;
     if (isset($data['retry'])) {
-        $delay = $data['retry'];
+        $retry = $data['retry'];
         unset($data['retry']);
     }
 
