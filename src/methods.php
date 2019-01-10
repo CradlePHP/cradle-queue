@@ -23,7 +23,7 @@ if (!defined('WORKER_ID')) {
  * @param string $task The task name
  * @param array  $data Data to use for this task
  */
-$cradle->package('cradlephp/cradle-queue')->addMethod('queue', function($task = null, array $data = []) {
+$cradle->package('cradlephp/cradle-queue')->addMethod('queue', function($task = null, array $data = [], array $options = []) {
     $resource = cradle('global')->service('rabbitmq-main');
     $settings = cradle('global')->config('settings');
 
@@ -37,6 +37,18 @@ $cradle->package('cradlephp/cradle-queue')->addMethod('queue', function($task = 
         $service
             ->setQueue($queue)
             ->setData($data);
+
+        if (isset($options['delay']) && $options['delay']) {
+            $service->setDelay($options['delay']);
+        }
+
+        if (isset($options['retry']) && $options['retry']) {
+            $service->setRetry($options['retry']);
+        }
+
+        if (isset($options['priority']) && $options['priority']) {
+            $service->setPriority($options['priority']);
+        }
 
         if(is_string($task)) {
             return $service->send($task);
