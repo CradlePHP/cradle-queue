@@ -1,3 +1,4 @@
 <?php //-->
 require_once __DIR__ . '/src/events.php';
-require_once __DIR__ . '/src/methods.php';
+
+$this->preprocess(include __DIR__ . '/src/methods.php');

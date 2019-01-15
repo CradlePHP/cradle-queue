@@ -14,7 +14,7 @@ use Cradle\Framework\Queue\Service\RabbitMQService;
  *
  * @return string
  */
-$cradle->on('queue', function(Request $request, Response $response) {
+$this->on('queue', function(Request $request, Response $response) {
     $data = $request->getStage();
 
     if (!isset($data[0])) {
@@ -75,7 +75,7 @@ $cradle->on('queue', function(Request $request, Response $response) {
  *
  * @return string
  */
-$cradle->on('work', function(Request $request, Response $response) {
+$this->on('work', function(Request $request, Response $response) {
     //get the queue name
     $name = 'queue';
     if ($request->hasStage(0)) {

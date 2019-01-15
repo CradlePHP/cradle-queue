@@ -28,13 +28,13 @@ Open `/config/services.php` and add
 ## Methods
 
 ```
-cradle('global')->queue(*string $event, array $data);
+cradle('cradlephp/cradle-queue')->queue(*string $event, array $data);
 ```
 
 An easy way to queue.
 
 ```
-cradle('global')
+cradle('cradlephp/cradle-queue')
     ->queue()
     ->setData(*array $data)
     ->setDelay(*string $delay)
