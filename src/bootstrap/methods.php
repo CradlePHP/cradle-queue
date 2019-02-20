@@ -294,7 +294,7 @@ return function(RequestInterface $request, ResponseInterface $response) {
             }
 
             //dont trust PWD
-            $cwd = realpath(__DIR__ . '/../../../..');
+            $cwd = realpath(__DIR__ . '/../../../../..');
 
             $command = sprintf(
                 'cd %s && %sbin/cradle %s%s --__worker_id=%s --__json64=\'%s\'',
