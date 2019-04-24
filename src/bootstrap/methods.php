@@ -25,14 +25,17 @@ return function(RequestInterface $request, ResponseInterface $response) {
      * @param string $task The task name
      * @param array  $data Data to use for this task
      */
-    ->addMethod('queue', function($task = null, array $data = []) {
+    ->addMethod('queue', function($task = null, array $data = [], $queue = null) {
         $global = cradle('global');
         $resource = $global->service('rabbitmq-main');
         $settings = $global->config('settings');
 
-        $queue = 'queue';
-        if(isset($settings['queue'])) {
-            $queue = $settings['queue'];
+        if (is_null($queue)) {
+            $queue = 'queue';
+
+            if(isset($settings['queue'])) {
+                $queue = $settings['queue'];
+            }
         }
 
         if($resource) {
