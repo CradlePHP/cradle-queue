@@ -12,6 +12,8 @@ use Cradle\Framework\Queue\Service\NoopService;
 use Cradle\Http\Request\RequestInterface;
 use Cradle\Http\Response\ResponseInterface;
 
+use Composer\Spdx\SpdxLicenses;
+
 if (!defined('WORKER_ID')) {
     define('WORKER_ID', md5(uniqid()));
 }
@@ -25,14 +27,17 @@ return function(RequestInterface $request, ResponseInterface $response) {
      * @param string $task The task name
      * @param array  $data Data to use for this task
      */
-    ->addMethod('queue', function($task = null, array $data = []) {
+    ->addMethod('queue', function($task = null, array $data = [], $queue = null) {
         $global = cradle('global');
         $resource = $global->service('rabbitmq-main');
         $settings = $global->config('settings');
 
-        $queue = 'queue';
-        if(isset($settings['queue'])) {
-            $queue = $settings['queue'];
+        if (is_null($queue)) {
+            $queue = 'queue';
+
+            if(isset($settings['queue'])) {
+                $queue = $settings['queue'];
+            }
         }
 
         if($resource) {
@@ -295,6 +300,15 @@ return function(RequestInterface $request, ResponseInterface $response) {
 
             //dont trust PWD
             $cwd = realpath(__DIR__ . '/../../../../..');
+
+            //HAX using the composer package to get the root of the vendor folder
+            //is there a better recommended way?
+            if (class_exists(SpdxLicenses::class)
+                && method_exists(SpdxLicenses::class, 'getResourcesDir')
+                && realpath(SpdxLicenses::getResourcesDir() . '/../../..')
+            ) {
+                $cwd = realpath(SpdxLicenses::getResourcesDir() . '/../../..');
+            }
 
             $command = sprintf(
                 'cd %s && %sbin/cradle %s%s --__worker_id=%s --__json64=\'%s\'',
