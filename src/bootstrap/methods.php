@@ -12,6 +12,8 @@ use Cradle\Framework\Queue\Service\NoopService;
 use Cradle\Http\Request\RequestInterface;
 use Cradle\Http\Response\ResponseInterface;
 
+use Composer\Spdx\SpdxLicenses;
+
 if (!defined('WORKER_ID')) {
     define('WORKER_ID', md5(uniqid()));
 }
