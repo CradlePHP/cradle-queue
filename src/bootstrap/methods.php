@@ -299,6 +299,15 @@ return function(RequestInterface $request, ResponseInterface $response) {
             //dont trust PWD
             $cwd = realpath(__DIR__ . '/../../../../..');
 
+            //HAX using the composer package to get the root of the vendor folder
+            //is there a better recommended way?
+            if (class_exists(SpdxLicenses::class)
+                && method_exists(SpdxLicenses::class, 'getResourcesDir')
+                && realpath(SpdxLicenses::getResourcesDir() . '/../../..')
+            ) {
+                $cwd = realpath(SpdxLicenses::getResourcesDir() . '/../../..');
+            }
+
             $command = sprintf(
                 'cd %s && %sbin/cradle %s%s --__worker_id=%s --__json64=\'%s\'',
                 $cwd,
