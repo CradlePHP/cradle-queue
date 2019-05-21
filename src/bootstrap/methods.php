@@ -305,9 +305,9 @@ return function(RequestInterface $request, ResponseInterface $response) {
             //is there a better recommended way?
             if (class_exists(SpdxLicenses::class)
                 && method_exists(SpdxLicenses::class, 'getResourcesDir')
-                && realpath(SpdxLicenses::getResourcesDir() . '/../../..')
+                && realpath(SpdxLicenses::getResourcesDir() . '/../../../..')
             ) {
-                $cwd = realpath(SpdxLicenses::getResourcesDir() . '/../../..');
+                $cwd = realpath(SpdxLicenses::getResourcesDir() . '/../../../..');
             }
 
             $command = sprintf(
